@@ -1,0 +1,31 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>스터디파이 브릿지 랜딩</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=WindSong&display=swap" rel="stylesheet" />
+      <script type="module" crossorigin src="/assets/index-BmZPsvBv.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-C6Kunt3Y.css">
+    </head>
+
+    <body>
+      <div id="root"></div>
+      <script>
+        window.onerror = function(msg, url, line, col, err) {
+          document.getElementById('root').innerHTML =
+            '<div style="padding:40px;color:red;font-size:16px">' +
+            '<h2>JS Error</h2><pre>' + msg + '\n' + (err && err.stack || '') + '</pre></div>';
+        };
+        window.addEventListener('unhandledrejection', function(e) {
+          document.getElementById('root').innerHTML =
+            '<div style="padding:40px;color:red;font-size:16px">' +
+            '<h2>Promise Error</h2><pre>' + (e.reason && e.reason.stack || e.reason) + '</pre></div>';
+        });
+      </script>
+    </body>
+  </html>
+  
