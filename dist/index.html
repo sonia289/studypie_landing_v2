@@ -8,15 +8,39 @@
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link href="https://fonts.googleapis.com/css2?family=WindSong&display=swap" rel="stylesheet" />
-      <script type="module" crossorigin src="/assets/index-BmZPsvBv.js"></script>
+      <script type="module" crossorigin src="/assets/index-v2.js"></script>
       <link rel="stylesheet" crossorigin href="/assets/index-C6Kunt3Y.css">
       <style>
+        /* 외부 전체너비 div 배경 제거 */
         div[data-name="상단 띠배너"] {
           background: transparent !important;
         }
+        /* 내부 375px 컨테이너에 피그마 디자인 적용 */
         div[data-name="상단 띠배너"] > div {
           background: linear-gradient(91deg, #FF76D5 0.08%, #435AF7 99.92%) !important;
+          display: inline-flex !important;
+          padding: 7.102px 14.544px 6.757px 84.488px !important;
+          justify-content: flex-end !important;
+          align-items: center !important;
+          gap: 7.616px !important;
+          box-sizing: border-box !important;
         }
+        /* 텍스트 그룹: inset-0(전체채움) → 피그마 위치(left:84.49px, 수직중앙) */
+        div[data-name="상단 띠배너"] > div > div:first-child {
+          position: absolute !important;
+          inset: unset !important;
+          left: 84.49px !important;
+          top: 50% !important;
+          right: auto !important;
+          bottom: auto !important;
+          transform: translateY(-50%) !important;
+          width: 206.025px !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        /* 메인 콘텐츠와 띠배너 사이 간격 제거 */
         div[data-name="1"] {
           top: 0 !important;
         }
