@@ -173,6 +173,98 @@
         }
       })();
       </script>
+      <script>
+      (function() {
+        var inserted = false;
+        var SECTION_TOP = 704;
+        var SECTION_HEIGHT = 448;
+
+        function createShot(left, label, screenSrc, frameSrc, screenWidth, screenHeight, screenLeft, screenTop, maskColor) {
+          return '' +
+            '<div style="position:absolute;left:' + left + 'px;top:219px;width:162px;height:229px;">' +
+              '<div style="position:absolute;left:23px;top:0;width:56px;height:14px;background:#435AF7;border-radius:999px;"></div>' +
+              '<p style="position:absolute;left:51px;top:1px;transform:translateX(-50%);margin:0;color:#fff;font-size:10px;font-weight:500;line-height:14px;white-space:nowrap;">' + label + '</p>' +
+              '<div style="position:absolute;left:22px;top:16px;width:117px;height:255px;background:#111827;border-radius:16px;box-shadow:0 16px 28px rgba(67,90,247,0.2);overflow:hidden;">' +
+                '<div style="position:absolute;left:0;top:0;width:117px;height:24px;background:' + maskColor + ';"></div>' +
+                '<img src="/assets/' + screenSrc + '" alt="' + label + '" style="position:absolute;left:' + screenLeft + 'px;top:' + screenTop + 'px;width:' + screenWidth + 'px;height:' + screenHeight + 'px;display:block;max-width:none;">' +
+              '</div>' +
+              '<img src="/assets/' + frameSrc + '" alt="" style="position:absolute;left:0;top:0;width:162px;height:284px;display:block;max-width:none;">' +
+            '</div>';
+        }
+
+        function buildSection() {
+          var section = document.createElement('div');
+          section.setAttribute('data-injected-section', 'studypie-app');
+          section.style.cssText = [
+            'position:absolute',
+            'left:0',
+            'top:' + SECTION_TOP + 'px',
+            'width:375px',
+            'height:' + SECTION_HEIGHT + 'px',
+            'overflow:hidden',
+            'background:linear-gradient(135deg,#eef4ff 0%,#f5edff 100%)'
+          ].join(';');
+
+          section.innerHTML = '' +
+            '<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 18%,rgba(67,90,247,0.22),rgba(67,90,247,0) 34%);"></div>' +
+            '<div style="position:absolute;left:107px;top:70px;width:160px;height:33px;display:flex;align-items:center;justify-content:center;">' +
+              '<p style="margin:0;color:#ffffff;font-size:23px;font-weight:700;line-height:32px;white-space:nowrap;">스터디파이 앱</p>' +
+            '</div>' +
+            '<div style="position:absolute;left:100px;top:130px;width:175px;height:34px;display:flex;align-items:center;justify-content:center;">' +
+              '<p style="margin:0;color:#1f2937;font-size:24px;font-weight:700;line-height:32px;white-space:nowrap;">AI 분석 맞춤 학습</p>' +
+            '</div>' +
+            '<div style="position:absolute;left:63px;top:168px;width:249px;text-align:center;color:#374151;font-size:14px;line-height:21px;">' +
+              '지금 결제하시는 분들께<br><span style="font-weight:700;">스터디파이 앱</span>이 함께 제공돼요.' +
+            '</div>' +
+            '<div style="position:absolute;left:70px;top:248px;width:235px;height:1px;background:rgba(129,140,248,0.35);"></div>' +
+            createShot(-34, 'AI 회화', 'phone-screen-home-DFeMVReh.png', 'phone-frame-BiW8I2cs.png', 119, 198, -1, 19, '#eef2ff') +
+            createShot(106, '표현 학습', 'phone-screen-expression-IrWdi8DS.png', 'phone-frame-BiW8I2cs.png', 119, 197, 0, 17, '#ffffff') +
+            createShot(246, '퀴즈 풀기', 'phone-screen-quiz-DMkWs4CP.png', 'phone-frame-BiW8I2cs.png', 117, 196, 0, 18, '#ffffff');
+
+          return section;
+        }
+
+        function insertSection() {
+          if (inserted) return true;
+
+          var target = document.querySelector('div[data-name="2"]');
+          if (!target || !target.parentElement) return false;
+
+          var parent = target.parentElement;
+          if (parent.querySelector('div[data-injected-section="studypie-app"]')) {
+            inserted = true;
+            return true;
+          }
+
+          var children = Array.prototype.slice.call(parent.children);
+          var section = buildSection();
+          parent.insertBefore(section, target);
+
+          children.forEach(function(child) {
+            if (!child || child === section) return;
+            var top = parseFloat(window.getComputedStyle(child).top);
+            if (!isNaN(top) && top >= SECTION_TOP) {
+              child.style.top = (top + SECTION_HEIGHT) + 'px';
+            }
+          });
+
+          var parentHeight = parseFloat(window.getComputedStyle(parent).height);
+          if (!isNaN(parentHeight)) {
+            parent.style.height = (parentHeight + SECTION_HEIGHT) + 'px';
+          }
+
+          inserted = true;
+          return true;
+        }
+
+        if (!insertSection()) {
+          var obs = new MutationObserver(function(_, observer) {
+            if (insertSection()) observer.disconnect();
+          });
+          obs.observe(document.body, { childList: true, subtree: true });
+        }
+      })();
+      </script>
     </body>
   </html>
   
